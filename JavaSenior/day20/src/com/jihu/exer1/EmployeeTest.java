@@ -2,9 +2,7 @@ package com.jihu.exer1;
 
 import org.junit.Test;
 
-import java.util.Iterator;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * 创建该类的5个对象，并把这些对象放入TreeSet集合中（下一章：TreeSet需使用泛型来定义）
@@ -50,20 +48,24 @@ public class EmployeeTest {
                 MyDate b1 = e1.getMyDate();
                 MyDate b2 = e2.getMyDate();
 
+                //比较年
                 int minsYear = b1.getYear() - b2.getYear();
                 if(minsYear != 0){
                     return minsYear;
                 }
 
+                //比较月
                 int minsMonth = b1.getMonth() - b2.getMonth();
                 if(minsMonth != 0){
                     return minsMonth;
                 }
 
+                //比较日
                 int minsDay = b1.getDay() - b2.getDay();
                 if(minsDay != 0){
                     return minsDay;
                 }
+                return 0;
             }
             throw new RuntimeException("传入的数据类型不一致");
         });
@@ -72,18 +74,49 @@ public class EmployeeTest {
         Employee e3 = new Employee("guofucheng",44,new MyDate(1954,5,9));
         Employee e4 = new Employee("liming",51,new MyDate(1978,8,12));
         Employee e5 = new Employee("liangzhaowei",21,new MyDate(1978,12,4));
-
         set.add(e1);
         set.add(e2);
         set.add(e3);
         set.add(e4);
         set.add(e5);
-
         Iterator iterator = set.iterator();
         while (iterator.hasNext()){
             System.out.println(iterator.next());
         }
-
     }
 
+    public static List duplicateList(List list){
+        HashSet set = new HashSet();
+        set.addAll(list);
+        return new ArrayList(set);
+    }
+
+    @Test
+    public void test3(){
+        List list = new ArrayList();
+        list.add(new Integer(1));
+        list.add(new Integer(2));
+        list.add(new Integer(2));
+        list.add(new Integer(4));
+        list.add(new Integer(4));
+        List list2 = duplicateList(list);
+        list2.forEach(System.out::println);
+    }
+
+    @Test
+    public void test4(){
+        HashSet set = new HashSet();
+        Person p1 = new Person(1001,"AA");
+        Person p2 = new Person(1002,"BB");
+
+        set.add(p1);
+        set.add(p2);
+        System.out.println(set);
+        set.remove(p1);
+        System.out.println(set);
+        set.add(new Person(1001,"CC"));
+        System.out.println(set);
+        set.add(new Person(1001,"AA"));
+        System.out.println(set);
+    }
 }
